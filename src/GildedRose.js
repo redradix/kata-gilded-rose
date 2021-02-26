@@ -25,11 +25,8 @@ const MAX_QUALITY = 50;
 GildedRose.updateQuality = function (items) {
   return items.map(item => {
     let { name, quality, sellIn } = item
-    const isBrie = BRIE === name;
-    const isSulfuras = SULFURAS === name;
-    const isBackstage = BACKSTAGE_PASSES === name;
-    const isDegradable = isBackstage || isBrie
-    const isLegendary = isSulfuras
+    const isDegradable = BACKSTAGE_PASSES === name || BRIE === name;
+    const isLegendary = SULFURAS === name
 
     if (isLegendary) return item
 
