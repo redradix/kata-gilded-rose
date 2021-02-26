@@ -19,7 +19,9 @@ const VEST = "+5 Dexterity Vest";
 GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
     const item = items[i];
-    if (BRIE !== item.name && BACKSTAGE !== item.name) {
+    const isBrie = BRIE === item.name
+
+    if (!isBrie && BACKSTAGE !== item.name) {
       //TODO: Improve this code.
       if (item.quality > 0) {
         if (SULFURAS !== item.name) {
@@ -29,13 +31,13 @@ GildedRose.updateQuality = function (items) {
     } else {
       if (item.quality < 50) {
         item.quality++;
-        if (BRIE === item.name) {
+        if (isBrie) {
           if (item.sellIn < 6) {
             item.quality++;
           }
         }
         //Increases the Quality of the stinky cheese if its 11 days to due date.
-        if (BRIE === item.name) {
+        if (isBrie) {
           if (item.sellIn < 11) {
             item.quality++;
           }
@@ -60,7 +62,7 @@ GildedRose.updateQuality = function (items) {
       item.sellIn = item.sellIn - 1;
     }
     if (item.sellIn < 0) {
-      if (BRIE !== item.name) {
+      if (!isBrie) {
         if (BACKSTAGE !== item.name) {
           if (item.quality > 0) {
             if (SULFURAS !== item.name) {
@@ -75,7 +77,7 @@ GildedRose.updateQuality = function (items) {
         if (item.quality < 50) {
           item.quality++;
         }
-        if (BRIE === item.name && item.sellIn <= 0) item.quality = 0;
+        if (isBrie && item.sellIn <= 0) item.quality = 0;
       } // of for.
     }
     if (SULFURAS !== item.name) if (item.quality > 50) item.quality = 50;
