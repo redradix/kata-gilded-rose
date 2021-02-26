@@ -27,8 +27,9 @@ GildedRose.updateQuality = function (items) {
     const isBrie = BRIE === item.name;
     const isSulfuras = SULFURAS === item.name;
     const isBackstage = BACKSTAGE_PASSES === item.name;
+    const isStandard = !isBrie && !isBackstage && !isSulfuras;
 
-    if (!isBrie && !isBackstage && !isSulfuras) {
+    if (isStandard) {
       item.quality--;
     } else if (item.quality < MAX_QUALITY) {
       item.quality++;
@@ -53,7 +54,7 @@ GildedRose.updateQuality = function (items) {
     }
 
     if (item.sellIn < 0) {
-      if (!isBrie && !isBackstage && !isSulfuras) {
+      if (isStandard) {
         item.quality--;
       } else {
         item.quality = 0;
@@ -61,7 +62,7 @@ GildedRose.updateQuality = function (items) {
     }
 
     if (item.quality < 0) {
-      item.quality = 0
+      item.quality = 0;
     }
 
     return item;
