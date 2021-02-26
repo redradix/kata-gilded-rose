@@ -44,6 +44,10 @@ GildedRose.updateQuality = function (items) {
       }
     }
 
+    if (!isSulfuras && item.quality > MAX_QUALITY) {
+      item.quality = MAX_QUALITY;
+    }
+
     if (!isSulfuras) {
       item.sellIn--;
     }
@@ -54,10 +58,6 @@ GildedRose.updateQuality = function (items) {
       } else {
         item.quality = 0;
       }
-    }
-
-    if (!isSulfuras && item.quality > MAX_QUALITY) {
-      item.quality = MAX_QUALITY;
     }
 
     return item;
