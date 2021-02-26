@@ -2,7 +2,7 @@ import Item from "./Item";
 
 const GildedRose = function () {
   var items = [];
-  items.push(new Item("+5 Dexterity Vest", 10, 20));
+  items.push(new Item(VEST, 10, 20));
   items.push(new Item(BRIE, 2, 0));
   items.push(new Item("Elixir of the Mongoose", 5, 7));
   items.push(new Item(SULFURAS, 0, 80));
