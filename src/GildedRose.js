@@ -53,11 +53,15 @@ GildedRose.updateQuality = function (items) {
     }
 
     if (item.sellIn < 0) {
-      if (!isBrie && !isBackstage && item.quality && !isSulfuras) {
+      if (!isBrie && !isBackstage && !isSulfuras) {
         item.quality--;
       } else {
         item.quality = 0;
       }
+    }
+
+    if (item.quality < 0) {
+      item.quality = 0
     }
 
     return item;
