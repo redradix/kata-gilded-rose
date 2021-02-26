@@ -18,6 +18,13 @@ const VEST = "+5 Dexterity Vest";
 const MAX_QUALITY = 50
 
 GildedRose.updateQuality = function (items) {
+
+  const increaseQuality = (days, isBrie, item) => {
+    if (isBrie && item.sellIn < days) {
+      item.quality++;
+    }
+  };
+
   for (var i = 0; i < items.length; i++) {
     const item = items[i];
     const isBrie = BRIE === item.name
@@ -30,13 +37,9 @@ GildedRose.updateQuality = function (items) {
     } else {
       if (item.quality < MAX_QUALITY) {
         item.quality++;
-        if (isBrie && item.sellIn < 6) {
-          item.quality++;
-        }
+        increaseQuality(6, isBrie, item);
         //Increases the Quality of the stinky cheese if its 11 days to due date.
-        if (isBrie && item.sellIn < 11) {
-          item.quality++;
-        }
+        increaseQuality(11, isBrie, item);
         if (BACKSTAGE === item.name) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
