@@ -23,8 +23,7 @@ const MANA_CAKE = "Conjured Mana Cake";
 const MAX_QUALITY = 50;
 
 GildedRose.updateQuality = function (items) {
-  for (var i = 0; i < items.length; i++) {
-    const item = items[i];
+  return items.map(item => {
     const isBrie = BRIE === item.name;
     const isSulfuras = SULFURAS === item.name;
     const isBackstage = BACKSTAGE_PASSES === item.name;
@@ -55,8 +54,8 @@ GildedRose.updateQuality = function (items) {
     if (!isSulfuras && item.quality > MAX_QUALITY) {
       item.quality = MAX_QUALITY;
     }
-  }
-  return items;
+    return item
+  })
 };
 
 export default GildedRose;
