@@ -24,7 +24,7 @@ GildedRose.updateQuality = function (items) {
 
     if (!isBrie && BACKSTAGE !== item.name) {
       //TODO: Improve this code.
-      if (item.quality > 0 && SULFURAS !== item.name) {
+      if (item.quality && SULFURAS !== item.name) {
         item.quality--;
       }
     } else {
@@ -57,7 +57,7 @@ GildedRose.updateQuality = function (items) {
     if (item.sellIn < 0) {
       if (!isBrie) {
         if (BACKSTAGE !== item.name) {
-          if (item.quality > 0 && SULFURAS !== item.name) {
+          if (item.quality && SULFURAS !== item.name) {
             item.quality--;
           }
         } else {
