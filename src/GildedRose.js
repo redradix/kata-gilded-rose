@@ -15,19 +15,18 @@ const SULFURAS = "Sulfuras, Hand of Ragnaros";
 const BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
 const BRIE = "Aged Brie";
 const VEST = "+5 Dexterity Vest";
-const MAX_QUALITY = 50
+const MAX_QUALITY = 50;
 
 GildedRose.updateQuality = function (items) {
-
-  const increaseQuality = (days, isBrie, item) => {
-    if (isBrie && item.sellIn < days) {
-      item.quality++;
-    }
-  };
-
   for (var i = 0; i < items.length; i++) {
     const item = items[i];
-    const isBrie = BRIE === item.name
+    const isBrie = BRIE === item.name;
+
+    const increaseQuality = (days) => {
+      if (isBrie && item.sellIn < days) {
+        item.quality++;
+      }
+    };
 
     if (!isBrie && BACKSTAGE !== item.name) {
       //TODO: Improve this code.
@@ -37,9 +36,9 @@ GildedRose.updateQuality = function (items) {
     } else {
       if (item.quality < MAX_QUALITY) {
         item.quality++;
-        increaseQuality(6, isBrie, item);
+        increaseQuality(6);
         //Increases the Quality of the stinky cheese if its 11 days to due date.
-        increaseQuality(11, isBrie, item);
+        increaseQuality(11);
         if (BACKSTAGE === item.name) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
@@ -74,7 +73,8 @@ GildedRose.updateQuality = function (items) {
         if (isBrie && item.sellIn <= 0) item.quality = 0;
       } // of for.
     }
-    if (SULFURAS !== item.name) if (item.quality > MAX_QUALITY) item.quality = MAX_QUALITY;
+    if (SULFURAS !== item.name)
+      if (item.quality > MAX_QUALITY) item.quality = MAX_QUALITY;
   }
   return items;
 };
