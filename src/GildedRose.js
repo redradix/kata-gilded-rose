@@ -1,20 +1,25 @@
 import Item from "./Item";
 
 const GildedRose = function () {
-  var items = [];
-  items.push(new Item(VEST, 10, 20));
-  items.push(new Item(BRIE, 2, 0));
-  items.push(new Item("Elixir of the Mongoose", 5, 7));
-  items.push(new Item(SULFURAS, 0, 80));
-  items.push(new Item(BACKSTAGE, 15, 20));
-  items.push(new Item("Conjured Mana Cake", 3, 6));
+  var items = [
+    new Item(VEST, 10, 20),
+    new Item(BRIE, 2, 0),
+    new Item(ELIXIR, 5, 7),
+    new Item(SULFURAS, 0, 80),
+    new Item(BACKSTAGE_PASSES, 15, 20),
+    new Item(MANA_CAKE, 3, 6),
+  ];
+
   GildedRose.updateQuality(items);
 };
 
-const SULFURAS = "Sulfuras, Hand of Ragnaros";
-const BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
-const BRIE = "Aged Brie";
 const VEST = "+5 Dexterity Vest";
+const BRIE = "Aged Brie";
+const ELIXIR = "Elixir of the Mongoose";
+const SULFURAS = "Sulfuras, Hand of Ragnaros";
+const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+const MANA_CAKE = "Conjured Mana Cake";
+
 const MAX_QUALITY = 50;
 
 GildedRose.updateQuality = function (items) {
@@ -28,7 +33,7 @@ GildedRose.updateQuality = function (items) {
       }
     };
 
-    if (!isBrie && BACKSTAGE !== item.name) {
+    if (!isBrie && BACKSTAGE_PASSES !== item.name) {
       //TODO: Improve this code.
       if (item.quality && SULFURAS !== item.name) {
         item.quality--;
@@ -39,7 +44,7 @@ GildedRose.updateQuality = function (items) {
         increaseQuality(6);
         //Increases the Quality of the stinky cheese if its 11 days to due date.
         increaseQuality(11);
-        if (BACKSTAGE === item.name) {
+        if (BACKSTAGE_PASSES === item.name) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
             if (item.quality < MAX_QUALITY) {
@@ -58,7 +63,7 @@ GildedRose.updateQuality = function (items) {
     }
     if (item.sellIn < 0) {
       if (!isBrie) {
-        if (BACKSTAGE !== item.name) {
+        if (BACKSTAGE_PASSES !== item.name) {
           if (item.quality && SULFURAS !== item.name) {
             item.quality--;
           }
@@ -73,8 +78,9 @@ GildedRose.updateQuality = function (items) {
         if (isBrie && item.sellIn <= 0) item.quality = 0;
       } // of for.
     }
-    if (SULFURAS !== item.name)
-      if (item.quality > MAX_QUALITY) item.quality = MAX_QUALITY;
+    if (SULFURAS !== item.name && item.quality > MAX_QUALITY) {
+      item.quality = MAX_QUALITY;
+    }
   }
   return items;
 };
