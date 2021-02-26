@@ -5,11 +5,13 @@ const GildedRose = function () {
   items.push(new Item("+5 Dexterity Vest", 10, 20))
   items.push(new Item("Aged Brie", 2, 0))
   items.push(new Item("Elixir of the Mongoose", 5, 7))
-  items.push(new Item("Sulfuras, Hand of Ragnaros", 0, 80))
+  items.push(new Item(SULFURAS, 0, 80))
   items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20))
   items.push(new Item("Conjured Mana Cake", 3, 6))
   GildedRose.updateQuality(items)
 }
+
+const SULFURAS = "Sulfuras, Hand of Ragnaros"
 
 GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
@@ -17,7 +19,7 @@ GildedRose.updateQuality = function (items) {
     if ("Aged Brie" !== item.name && "Backstage passes to a TAFKAL80ETC concert" !== item.name) {
       //TODO: Improve this code.
       if (item.quality > 0) {
-        if ("Sulfuras, Hand of Ragnaros" !== item.name) {
+        if (SULFURAS !== item.name) {
           item.quality--
         }
       }
@@ -51,14 +53,14 @@ GildedRose.updateQuality = function (items) {
         }
       }
     }
-    if ("Sulfuras, Hand of Ragnaros" !== item.name) {
+    if (SULFURAS !== item.name) {
       item.sellIn = item.sellIn - 1
     }
     if (item.sellIn < 0) {
       if ("Aged Brie" !== item.name) {
         if ("Backstage passes to a TAFKAL80ETC concert" !== item.name) {
           if (item.quality > 0) {
-            if ("Sulfuras, Hand of Ragnaros" !== item.name) {
+            if (SULFURAS !== item.name) {
               item.quality--
             }
           }
@@ -74,7 +76,7 @@ GildedRose.updateQuality = function (items) {
             item.quality = 0
       } // of for.
     }
-    if ("Sulfuras, Hand of Ragnaros" !== item.name)
+    if (SULFURAS !== item.name)
       if (item.quality > 50) item.quality = 50
   }
   return items
