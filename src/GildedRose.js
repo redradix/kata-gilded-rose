@@ -60,12 +60,9 @@ GildedRose.updateQuality = function (items) {
     if (sellIn < 0 && isDegradable) {
       quality = 0;
     }
+
     if (sellIn < 0 && !isDegradable) {
       quality--;
-    }
-
-    if (quality < 0) {
-      quality = 0;
     }
 
     return {
