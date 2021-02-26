@@ -27,6 +27,7 @@ GildedRose.updateQuality = function (items) {
     const item = items[i];
     const isBrie = BRIE === item.name;
     const isSulfuras = SULFURAS === item.name;
+    const isBackstage = BACKSTAGE_PASSES === item.name;
 
     const increaseQuality = (days) => {
       if (isBrie && item.sellIn < days) {
@@ -34,7 +35,7 @@ GildedRose.updateQuality = function (items) {
       }
     };
 
-    if (!isBrie && BACKSTAGE_PASSES !== item.name) {
+    if (!isBrie && !isBackstage) {
       //TODO: Improve this code.
       if (item.quality && !isSulfuras) {
         item.quality--;
@@ -45,7 +46,7 @@ GildedRose.updateQuality = function (items) {
         increaseQuality(6);
         //Increases the Quality of the stinky cheese if its 11 days to due date.
         increaseQuality(11);
-        if (BACKSTAGE_PASSES === item.name) {
+        if (isBackstage) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
             if (item.quality < MAX_QUALITY) {
@@ -64,7 +65,7 @@ GildedRose.updateQuality = function (items) {
     }
     if (item.sellIn < 0) {
       if (!isBrie) {
-        if (BACKSTAGE_PASSES !== item.name) {
+        if (!isBackstage) {
           if (item.quality && !isSulfuras) {
             item.quality--;
           }
