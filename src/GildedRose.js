@@ -30,7 +30,6 @@ GildedRose.updateQuality = function (items) {
     const isBackstage = BACKSTAGE_PASSES === item.name;
 
     if (!isBrie && !isBackstage) {
-      //TODO: Improve this code.
       if (item.quality && !isSulfuras) {
         item.quality--;
       }
@@ -45,10 +44,8 @@ GildedRose.updateQuality = function (items) {
         }
         if (isBackstage) {
           if (item.sellIn < 11) {
-            // See revision number 2394 on SVN.
             item.quality++;
           }
-          //Increases the Quality of Backstage Passes if the Quality is 6 or less.
           if (item.sellIn < 6) {
             item.quality++;
           }
@@ -63,7 +60,6 @@ GildedRose.updateQuality = function (items) {
         if (!isBackstage && item.quality && !isSulfuras) {
           item.quality--;
         } else {
-          //TODO: Fix this.
           item.quality = 0;
         }
       } else {
@@ -71,7 +67,7 @@ GildedRose.updateQuality = function (items) {
           item.quality++;
         }
         if (isBrie) item.quality = 0;
-      } // of for.
+      }
     }
     if (!isSulfuras && item.quality > MAX_QUALITY) {
       item.quality = MAX_QUALITY;
