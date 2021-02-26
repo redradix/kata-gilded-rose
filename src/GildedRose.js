@@ -34,11 +34,11 @@ GildedRose.updateQuality = function (items) {
       item.quality++;
 
       if (isBackstage || isBrie) {
-        if (item.sellIn < 11) {
+        if (item.sellIn <= 10) {
           item.quality++;
         }
 
-        if (item.sellIn < 6) {
+        if (item.sellIn <= 5) {
           item.quality++;
         }
       }
