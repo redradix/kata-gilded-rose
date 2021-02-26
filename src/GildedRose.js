@@ -28,7 +28,6 @@ GildedRose.updateQuality = function (items) {
     const isBrie = BRIE === name;
     const isSulfuras = SULFURAS === name;
     const isBackstage = BACKSTAGE_PASSES === name;
-    const isSpecial = isBrie || isBackstage || isSulfuras;
     const isDegradable = isBackstage || isBrie
     const isLegendary = isSulfuras
 
@@ -36,11 +35,11 @@ GildedRose.updateQuality = function (items) {
 
     sellIn--;
 
-    if (!isSpecial) {
+    if (!isDegradable) {
       quality--;
     }
 
-    if (isSpecial && quality < MAX_QUALITY) {
+    if (isDegradable && quality < MAX_QUALITY) {
       quality++;
 
       if (isDegradable) {
@@ -58,10 +57,10 @@ GildedRose.updateQuality = function (items) {
       quality = MAX_QUALITY;
     }
 
-    if (sellIn < 0 && isSpecial) {
+    if (sellIn < 0 && isDegradable) {
       quality = 0;
     }
-    if (sellIn < 0 && !isSpecial) {
+    if (sellIn < 0 && !isDegradable) {
       quality--;
     }
 
