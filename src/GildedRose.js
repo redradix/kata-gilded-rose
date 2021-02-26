@@ -37,7 +37,9 @@ GildedRose.updateQuality = function (items) {
 
     if (!isSpecial) {
       quality--;
-    } else if (quality < MAX_QUALITY) {
+    }
+
+    if (isSpecial && quality < MAX_QUALITY) {
       quality++;
 
       if (isDegradable) {
@@ -58,7 +60,8 @@ GildedRose.updateQuality = function (items) {
     if (sellIn < 0) {
       if (isSpecial) {
         quality = 0;
-      } else {
+      }
+      if (!isSpecial) {
         quality--;
       }
     }
