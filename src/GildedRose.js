@@ -56,13 +56,9 @@ GildedRose.updateQuality = function (items) {
       }
     }
 
-    if (quality > MAX_QUALITY) {
-      quality = MAX_QUALITY;
-    }
-
     return {
       name,
-      quality,
+      quality: Math.min(quality, MAX_QUALITY),
       sellIn,
     }
   });
