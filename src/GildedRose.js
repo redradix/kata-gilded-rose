@@ -23,49 +23,53 @@ const MANA_CAKE = "Conjured Mana Cake";
 const MAX_QUALITY = 50;
 
 GildedRose.updateQuality = function (items) {
-  return items.map((item) => {
-    const isBrie = BRIE === item.name;
-    const isSulfuras = SULFURAS === item.name;
-    const isBackstage = BACKSTAGE_PASSES === item.name;
-    const isStandard = !isBrie && !isBackstage && !isSulfuras;
+  return items.map(({ name, quality, sellIn }) => {
+    const isBrie = BRIE === name;
+    const isSulfuras = SULFURAS === name;
+    const isBackstage = BACKSTAGE_PASSES === name;
+    const isStandard = isBrie || isBackstage || isSulfuras;
 
-    if (isStandard) {
-      item.quality--;
-    } else if (item.quality < MAX_QUALITY) {
-      item.quality++;
+    if (!isStandard) {
+      quality--;
+    } else if (quality < MAX_QUALITY) {
+      quality++;
 
       if (isBackstage || isBrie) {
-        if (item.sellIn <= 10) {
-          item.quality++;
+        if (sellIn <= 10) {
+          quality++;
         }
 
-        if (item.sellIn <= 5) {
-          item.quality++;
+        if (sellIn <= 5) {
+          quality++;
         }
       }
     }
 
-    if (!isSulfuras && item.quality > MAX_QUALITY) {
-      item.quality = MAX_QUALITY;
+    if (!isSulfuras && quality > MAX_QUALITY) {
+      quality = MAX_QUALITY;
     }
 
     if (!isSulfuras) {
-      item.sellIn--;
+      sellIn--;
     }
 
-    if (item.sellIn < 0) {
+    if (sellIn < 0) {
       if (isStandard) {
-        item.quality--;
+        quality = 0;
       } else {
-        item.quality = 0;
+        quality--;
       }
     }
 
-    if (item.quality < 0) {
-      item.quality = 0;
+    if (quality < 0) {
+      quality = 0;
     }
 
-    return item;
+    return {
+      name,
+      quality,
+      sellIn,
+    }
   });
 };
 
