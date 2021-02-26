@@ -23,7 +23,8 @@ const MANA_CAKE = "Conjured Mana Cake";
 const MAX_QUALITY = 50;
 
 GildedRose.updateQuality = function (items) {
-  return items.map(({ name, quality, sellIn }) => {
+  return items.map(item => {
+    let { name, quality, sellIn } = item
     const isBrie = BRIE === name;
     const isSulfuras = SULFURAS === name;
     const isBackstage = BACKSTAGE_PASSES === name;
@@ -31,9 +32,9 @@ GildedRose.updateQuality = function (items) {
     const isDegradable = isBackstage || isBrie
     const isLegendary = isSulfuras
 
-    if (!isLegendary) {
-      sellIn--;
-    }
+    if (isLegendary) return item
+
+    sellIn--;
 
     if (!isSpecial) {
       quality--;
@@ -53,7 +54,7 @@ GildedRose.updateQuality = function (items) {
       }
     }
 
-    if (!isLegendary && quality > MAX_QUALITY) {
+    if (quality > MAX_QUALITY) {
       quality = MAX_QUALITY;
     }
 
