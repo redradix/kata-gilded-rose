@@ -26,6 +26,7 @@ GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
     const item = items[i];
     const isBrie = BRIE === item.name;
+    const isSulfuras = SULFURAS === item.name;
 
     const increaseQuality = (days) => {
       if (isBrie && item.sellIn < days) {
@@ -35,7 +36,7 @@ GildedRose.updateQuality = function (items) {
 
     if (!isBrie && BACKSTAGE_PASSES !== item.name) {
       //TODO: Improve this code.
-      if (item.quality && SULFURAS !== item.name) {
+      if (item.quality && !isSulfuras) {
         item.quality--;
       }
     } else {
@@ -58,13 +59,13 @@ GildedRose.updateQuality = function (items) {
         }
       }
     }
-    if (SULFURAS !== item.name) {
+    if (!isSulfuras) {
       item.sellIn = item.sellIn - 1;
     }
     if (item.sellIn < 0) {
       if (!isBrie) {
         if (BACKSTAGE_PASSES !== item.name) {
-          if (item.quality && SULFURAS !== item.name) {
+          if (item.quality && !isSulfuras) {
             item.quality--;
           }
         } else {
@@ -78,7 +79,7 @@ GildedRose.updateQuality = function (items) {
         if (isBrie && item.sellIn <= 0) item.quality = 0;
       } // of for.
     }
-    if (SULFURAS !== item.name && item.quality > MAX_QUALITY) {
+    if (!isSulfuras && item.quality > MAX_QUALITY) {
       item.quality = MAX_QUALITY;
     }
   }
