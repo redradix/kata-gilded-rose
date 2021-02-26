@@ -42,12 +42,14 @@ GildedRose.updateQuality = function (items) {
     if (isSpecial && quality < MAX_QUALITY) {
       quality++;
 
-      if (isDegradable && sellIn <= 10) {
-        quality++;
-      }
+      if (isDegradable) {
+        if (sellIn <= 10) {
+          quality++;
+        }
 
-      if (isDegradable && sellIn <= 5) {
-        quality++;
+        if (sellIn <= 5) {
+          quality++;
+        }
       }
     }
 
