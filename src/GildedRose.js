@@ -31,22 +31,14 @@ GildedRose.updateQuality = function (items) {
 
     if (!isBrie && !isBackstage && !isSulfuras) {
       item.quality--;
-    } else {
-      if (item.quality < MAX_QUALITY) {
-        item.quality++;
-        if (isBrie && item.sellIn < 6) {
+    } else if (item.quality < MAX_QUALITY) {
+      item.quality++;
+      if (isBackstage || isBrie) {
+        if (item.sellIn < 11) {
           item.quality++;
         }
-        if (isBrie && item.sellIn < 11) {
+        if (item.sellIn < 6) {
           item.quality++;
-        }
-        if (isBackstage) {
-          if (item.sellIn < 11) {
-            item.quality++;
-          }
-          if (item.sellIn < 6) {
-            item.quality++;
-          }
         }
       }
     }
