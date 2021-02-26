@@ -49,12 +49,10 @@ GildedRose.updateQuality = function (items) {
         if (isBackstage) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
-            if (item.quality < MAX_QUALITY) {
-              item.quality++;
-            }
+            item.quality++;
           }
           //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-          if (item.sellIn < 6 && item.quality < MAX_QUALITY) {
+          if (item.sellIn < 6) {
             item.quality++;
           }
         }
@@ -77,7 +75,7 @@ GildedRose.updateQuality = function (items) {
         if (item.quality < MAX_QUALITY) {
           item.quality++;
         }
-        if (isBrie && item.sellIn <= 0) item.quality = 0;
+        if (isBrie) item.quality = 0;
       } // of for.
     }
     if (!isSulfuras && item.quality > MAX_QUALITY) {
