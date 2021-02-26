@@ -30,9 +30,7 @@ GildedRose.updateQuality = function (items) {
     const isBackstage = BACKSTAGE_PASSES === item.name;
 
     if (!isBrie && !isBackstage && !isSulfuras) {
-      if (item.quality) {
-        item.quality--;
-      }
+      item.quality--;
     } else {
       if (item.quality < MAX_QUALITY) {
         item.quality++;
