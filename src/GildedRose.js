@@ -15,6 +15,7 @@ const SULFURAS = "Sulfuras, Hand of Ragnaros";
 const BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
 const BRIE = "Aged Brie";
 const VEST = "+5 Dexterity Vest";
+const MAX_QUALITY = 50
 
 GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
@@ -27,7 +28,7 @@ GildedRose.updateQuality = function (items) {
         item.quality--;
       }
     } else {
-      if (item.quality < 50) {
+      if (item.quality < MAX_QUALITY) {
         item.quality++;
         if (isBrie && item.sellIn < 6) {
           item.quality++;
@@ -39,12 +40,12 @@ GildedRose.updateQuality = function (items) {
         if (BACKSTAGE === item.name) {
           if (item.sellIn < 11) {
             // See revision number 2394 on SVN.
-            if (item.quality < 50) {
+            if (item.quality < MAX_QUALITY) {
               item.quality++;
             }
           }
           //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-          if (item.sellIn < 6 && item.quality < 50) {
+          if (item.sellIn < 6 && item.quality < MAX_QUALITY) {
             item.quality++;
           }
         }
@@ -64,13 +65,13 @@ GildedRose.updateQuality = function (items) {
           item.quality = item.quality - item.quality;
         }
       } else {
-        if (item.quality < 50) {
+        if (item.quality < MAX_QUALITY) {
           item.quality++;
         }
         if (isBrie && item.sellIn <= 0) item.quality = 0;
       } // of for.
     }
-    if (SULFURAS !== item.name) if (item.quality > 50) item.quality = 50;
+    if (SULFURAS !== item.name) if (item.quality > MAX_QUALITY) item.quality = MAX_QUALITY;
   }
   return items;
 };
