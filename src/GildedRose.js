@@ -27,9 +27,9 @@ GildedRose.updateQuality = function (items) {
     const isBrie = BRIE === name;
     const isSulfuras = SULFURAS === name;
     const isBackstage = BACKSTAGE_PASSES === name;
-    const isStandard = isBrie || isBackstage || isSulfuras;
+    const isSpecial = isBrie || isBackstage || isSulfuras;
 
-    if (!isStandard) {
+    if (!isSpecial) {
       quality--;
     } else if (quality < MAX_QUALITY) {
       quality++;
@@ -54,7 +54,7 @@ GildedRose.updateQuality = function (items) {
     }
 
     if (sellIn < 0) {
-      if (isStandard) {
+      if (isSpecial) {
         quality = 0;
       } else {
         quality--;
