@@ -71,7 +71,7 @@ GildedRose.updateQuality = function (items) {
           }
         } else {
           //TODO: Fix this.
-          item.quality = item.quality - item.quality;
+          item.quality = 0;
         }
       } else {
         if (item.quality < MAX_QUALITY) {
