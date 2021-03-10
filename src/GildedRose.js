@@ -22,7 +22,6 @@ GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
     const item = items[i]
     if (AGED_BRIE != item.name && BACKSTAGE != item.name) {
-      //TODO: Improve this code.
       if (item.quality > 0) {
         if (SULFURAS != item.name) {
           item.quality = item.quality - 1
@@ -36,7 +35,6 @@ GildedRose.updateQuality = function (items) {
               item.quality = item.quality + 1
             }
         }
-        //Increases the Quality of the stinky cheese if its 11 days to due date.
         if (AGED_BRIE == item.name) {
             if (item.sellIn < 11) {
               item.quality = item.quality + 1
@@ -44,12 +42,10 @@ GildedRose.updateQuality = function (items) {
         }
         if (BACKSTAGE == item.name) {
           if (item.sellIn < 11) {
-            // See revision number 2394 on SVN.
             if (item.quality < 50) {
               item.quality = item.quality + 1
             }
           }
-          //Increases the Quality of Backstage Passes if the Quality is 6 or less.
           if (item.sellIn < 6) {
             if (item.quality < 50) {
               item.quality = item.quality + 1
@@ -70,7 +66,6 @@ GildedRose.updateQuality = function (items) {
             }
           }
         } else {
-          //TODO: Fix this.
           item.quality = item.quality - item.quality
         }
       } else {
@@ -79,7 +74,7 @@ GildedRose.updateQuality = function (items) {
         }
         if (AGED_BRIE == item.name && item.sellIn <= 0)
             item.quality = 0
-      } // of for.
+      }
     }
     if (SULFURAS != item.name)
       if (item.quality > 50) item.quality = 50
