@@ -45,6 +45,9 @@ GildedRose.updateQuality = function (items) {
       if (item.quality < 50) {
         item.quality = item.quality + 1
       }
+      if (item.sellIn < 0) {
+        item.quality = 0
+      }
     }
 
     if (SULFURAS !== item.name) {
@@ -60,9 +63,9 @@ GildedRose.updateQuality = function (items) {
       }
     }
 
-    if (BACKSTAGE === item.name || SULFURAS === item.name) {
+    if (BACKSTAGE === item.name) {
       if (item.sellIn < 0) {
-        item.quality = item.quality - item.quality
+        item.quality = 0
       }
     }
 
