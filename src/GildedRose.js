@@ -26,7 +26,9 @@ GildedRose.updateQuality = function (items) {
       if (item.quality > 0) {
         item.quality = item.quality - 1
       }
-    } else {
+    } 
+
+    if (AGED_BRIE === item.name || BACKSTAGE === item.name || SULFURAS === item.name) {
       if (item.quality < 50) {
         item.quality = item.quality + 1
 
