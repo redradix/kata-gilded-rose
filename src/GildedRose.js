@@ -49,14 +49,12 @@ GildedRose.updateQuality = function (items) {
     }
 
     if (item.sellIn < 0) {
-      if (AGED_BRIE !== item.name) {
-        if (BACKSTAGE !== item.name && SULFURAS !== item.name) {
-          if (item.quality > 0) {
-            item.quality = item.quality - 1
-          }
-        } else {
-          item.quality = item.quality - item.quality
+      if (BACKSTAGE !== item.name && SULFURAS !== item.name) {
+        if (item.quality > 0) {
+          item.quality = item.quality - 1
         }
+      } else {
+        item.quality = item.quality - item.quality
       }
 
       if (AGED_BRIE === item.name) {
