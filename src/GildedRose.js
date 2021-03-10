@@ -26,6 +26,12 @@ GildedRose.updateQuality = function (items) {
       if (item.quality > 0) {
         item.quality = item.quality - 1
       }
+
+      if (item.quality > 50) {
+        item.quality = 50
+      }
+
+      item.sellIn = item.sellIn - 1
     } 
 
     if (AGED_BRIE === item.name || BACKSTAGE === item.name) {
@@ -39,13 +45,12 @@ GildedRose.updateQuality = function (items) {
           item.quality = item.quality + 1
         }
       }
-    }
 
-    if (SULFURAS !== item.name) {
-      item.sellIn = item.sellIn - 1
       if (item.quality > 50) {
         item.quality = 50
       }
+
+      item.sellIn = item.sellIn - 1
     }
 
     if (AGED_BRIE === item.name || ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
