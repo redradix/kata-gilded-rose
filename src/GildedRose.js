@@ -22,7 +22,7 @@ GildedRose.updateQuality = function (items) {
   for (var i = 0; i < items.length; i++) {
     const item = items[i]
 
-    if (AGED_BRIE !== item.name && BACKSTAGE !== item.name && SULFURAS !== item.name) {
+    if (ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
       if (item.quality > 0) {
         item.quality = item.quality - 1
       }
@@ -57,7 +57,7 @@ GildedRose.updateQuality = function (items) {
       }
     }
 
-    if (BACKSTAGE !== item.name && SULFURAS !== item.name) {
+    if (AGED_BRIE === item.name || ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
       if (item.sellIn < 0 && item.quality > 0) {
         item.quality = item.quality - 1
       }
