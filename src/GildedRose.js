@@ -18,50 +18,61 @@ const GildedRose = function () {
   GildedRose.updateQuality(items)
 }
 
-GildedRose.updateQuality = function (items) {
-  for (var i = 0; i < items.length; i++) {
-    const item = items[i]
-
-    if (ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
-      if (item.quality > 0) {
-        item.quality = item.quality - 1
-      }
-
-      if (item.quality > 50) {
-        item.quality = 50
-      }
-
-      item.sellIn = item.sellIn - 1
-
-      if (item.sellIn < 0 && item.quality > 0) {
-        item.quality = item.quality - 1
-      }
-    }
-
-    if (BACKSTAGE === item.name || AGED_BRIE === item.name) {
-      if (item.quality < 50) {
-        item.quality = item.quality + 1
-
-        if (item.sellIn < 6) {
-          item.quality = item.quality + 1
-        }
-        if (item.sellIn < 11) {
-          item.quality = item.quality + 1
-        }
-      }
-
-      if (item.quality > 50) {
-        item.quality = 50
-      }
-
-      item.sellIn = item.sellIn - 1
-
-      if (item.sellIn < 0) {
-        item.quality = 0
-      }
-    }
+const updateItemQuality = item => {
+  if (SULFURAS === item.name) {
+    return item
   }
-  return items
+
+  if (ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
+    let { quality, sellIn, name } = item
+
+    if (quality > 0) {
+      quality = quality - 1
+    }
+
+    if (quality > 50) {
+      quality = 50
+    }
+
+    sellIn = sellIn - 1
+
+    if (sellIn < 0 && quality > 0) {
+      quality = quality - 1
+    }
+
+    return { name, quality, sellIn }
+  }
+
+  if (BACKSTAGE === item.name || AGED_BRIE === item.name) {
+    let { quality, sellIn, name } = item
+
+    if (quality < 50) {
+      quality = quality + 1
+
+      if (sellIn < 6) {
+        quality = quality + 1
+      }
+      if (sellIn < 11) {
+        quality = quality + 1
+      }
+    }
+
+    if (quality > 50) {
+      quality = 50
+    }
+
+    sellIn = sellIn - 1
+
+    if (sellIn < 0) {
+      quality = 0
+    }
+
+    return { name, quality, sellIn }
+  }
+}
+
+GildedRose.updateQuality = function (items) {
+  return items.map(updateItemQuality)
 };
 
 export default GildedRose
