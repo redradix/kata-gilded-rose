@@ -53,7 +53,7 @@ GildedRose.updateQuality = function (items) {
       item.sellIn = item.sellIn - 1
     }
 
-    if (AGED_BRIE === item.name || ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
+    if (ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
       if (item.sellIn < 0 && item.quality > 0) {
         item.quality = item.quality - 1
       }
