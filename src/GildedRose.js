@@ -18,61 +18,66 @@ const GildedRose = function () {
   GildedRose.updateQuality(items)
 }
 
-const updateItemQuality = item => {
-  if (SULFURAS === item.name) {
-    return item
+const updateConjured = item => {
+  let { quality, sellIn, name } = item
+
+  if (quality > 0) {
+    quality = quality - 1
   }
 
-  if (ELIXIR === item.name || VEST === item.name || CONJURED === item.name) {
-    let { quality, sellIn, name } = item
-
-    if (quality > 0) {
-      quality = quality - 1
-    }
-
-    if (quality > 50) {
-      quality = 50
-    }
-
-    sellIn = sellIn - 1
-
-    if (sellIn < 0 && quality > 0) {
-      quality = quality - 1
-    }
-
-    return { name, quality, sellIn }
+  if (quality > 50) {
+    quality = 50
   }
 
-  if (BACKSTAGE === item.name || AGED_BRIE === item.name) {
-    let { quality, sellIn, name } = item
+  sellIn = sellIn - 1
 
-    if (quality < 50) {
+  if (sellIn < 0 && quality > 0) {
+    quality = quality - 1
+  }
+
+  return { name, quality, sellIn }
+}
+
+const updateStandard = item => {
+  let { quality, sellIn, name } = item
+
+  if (quality < 50) {
+    quality = quality + 1
+
+    if (sellIn < 6) {
       quality = quality + 1
-
-      if (sellIn < 6) {
-        quality = quality + 1
-      }
-      if (sellIn < 11) {
-        quality = quality + 1
-      }
     }
-
-    if (quality > 50) {
-      quality = 50
+    if (sellIn < 11) {
+      quality = quality + 1
     }
-
-    sellIn = sellIn - 1
-
-    if (sellIn < 0) {
-      quality = 0
-    }
-
-    return { name, quality, sellIn }
   }
+
+  if (quality > 50) {
+    quality = 50
+  }
+
+  sellIn = sellIn - 1
+
+  if (sellIn < 0) {
+    quality = 0
+  }
+
+  return { name, quality, sellIn }
+}
+
+const updateLegendary = item => item
+  
+const MAP = {
+  [SULFURAS]: updateLegendary,
+  [ELIXIR]: updateConjured,
+  [VEST]: updateConjured,
+  [CONJURED]: updateConjured,
+  [AGED_BRIE]: updateStandard,
+  [BACKSTAGE]: updateStandard,
 }
 
 GildedRose.updateQuality = function (items) {
-  return items.map(updateItemQuality)
+  return items.map(item => MAP[item.name](item))
 };
 
 export default GildedRose
