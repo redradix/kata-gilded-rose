@@ -30,20 +30,11 @@ GildedRose.updateQuality = function (items) {
       if (item.quality < 50) {
         item.quality = item.quality + 1
 
-        if (AGED_BRIE === item.name) {
+        if (AGED_BRIE === item.name || BACKSTAGE === item.name) {
           if (item.sellIn < 6) {
             item.quality = item.quality + 1
           }
           if (item.sellIn < 11) {
-            item.quality = item.quality + 1
-          }
-        }
-
-        if (BACKSTAGE === item.name) {
-          if (item.sellIn < 11) {
-            item.quality = item.quality + 1
-          }
-          if (item.sellIn < 6) {
             item.quality = item.quality + 1
           }
         }
