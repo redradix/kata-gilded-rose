@@ -17,47 +17,47 @@ const isIncreasedQualityItem = (itemName) =>
 
 GildedRose.updateQuality = function (items) {
   for (let i = 0; i < items.length; i++) {
-    if (items[i].quality < 50) {
+    if (items[i].quality <= 50) {
       items[i].sellIn = items[i].sellIn - 1;
       if (isIncreasedQualityItem(items[i].name)) {
-        treatIncreasedQualityItems(items, i);
+        treatIncreasedQualityItems(items[i]);
       } else {
-        treatNormalItems(items, i);
+        treatNormalItems(items[i]);
       }
     }
   }
   return items;
 };
 
-const treatIncreasedQualityItems = (items, i) => {
-  items[i].quality = items[i].quality + 1;
+const treatIncreasedQualityItems = (item) => {
+  item.quality = item.quality + 1;
 
-  if (items[i].sellIn < 11) {
-    items[i].quality = items[i].quality + 1;
+  if (item.sellIn < 11) {
+    item.quality = item.quality + 1;
   }
 
-  if (items[i].sellIn < 6) {
-    items[i].quality = items[i].quality + 1;
+  if (item.sellIn < 6) {
+    item.quality = item.quality + 1;
   }
 
-  if (items[i].sellIn <= 0) {
-    items[i].quality = 0;
+  if (item.sellIn <= 0) {
+    item.quality = 0;
   }
 
-  if (items[i].quality > 50) items[i].quality = 50;
+  if (item.quality > 50) item.quality = 50;
 
-  return items;
+  return item;
 };
 
-const treatNormalItems = (items, i) => {
-  if (items[i].quality > 0) {
-    items[i].quality = items[i].quality - 1;
-    if (items[i].sellIn < 0) {
-      items[i].quality = items[i].quality - 1;
+const treatNormalItems = (item) => {
+  if (item.quality > 0) {
+    item.quality = item.quality - 1;
+    if (item.sellIn < 0) {
+      item.quality = item.quality - 1;
     }
   }
 
-  return items;
+  return item;
 };
 
 export default GildedRose;
