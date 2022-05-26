@@ -19,11 +19,9 @@ GildedRose.updateQuality = function (items) {
   for (let i = 0; i < items.length; i++) {
     if (items[i].quality <= 50) {
       items[i].sellIn = items[i].sellIn - 1;
-      if (isIncreasedQualityItem(items[i].name)) {
-        treatIncreasedQualityItems(items[i]);
-      } else {
-        treatNormalItems(items[i]);
-      }
+      isIncreasedQualityItem(items[i].name)
+        ? treatIncreasedQualityItems(items[i])
+        : treatNormalItems(items[i]);
     }
   }
   return items;
