@@ -18,7 +18,7 @@ const isIncreasedQualityItem = (itemName) =>
 GildedRose.updateQuality = function (items) {
   for (let i = 0; i < items.length; i++) {
     if (items[i].quality <= 50) {
-      items[i].sellIn = items[i].sellIn - 1;
+      decreaseValue(items[i], "sellIn");
       isIncreasedQualityItem(items[i].name)
         ? treatIncreasedQualityItems(items[i])
         : treatNormalItems(items[i]);
@@ -46,9 +46,9 @@ const treatIncreasedQualityItems = (item) => {
 
 const treatNormalItems = (item) => {
   if (item.quality > 0) {
-    decreaseQuality(item);
+    decreaseValue(item, "quality");
     if (item.sellIn < 0) {
-      decreaseQuality(item);
+      decreaseValue(item, "quality");
     }
   }
 
@@ -61,5 +61,5 @@ const increaseQuality = (item) => {
     : (item.quality = 50);
 };
 
-const decreaseQuality = (item) => (item.quality = item.quality - 1);
+const decreaseValue = (item, value) => (item[value] = item[value] - 1);
 export default GildedRose;
