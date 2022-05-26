@@ -28,34 +28,38 @@ GildedRose.updateQuality = function (items) {
 };
 
 const treatIncreasedQualityItems = (item) => {
-  item.quality = item.quality + 1;
+  increaseQuality(item);
 
   if (item.sellIn < 11) {
-    item.quality = item.quality + 1;
+    increaseQuality(item);
   }
 
   if (item.sellIn < 6) {
-    item.quality = item.quality + 1;
+    increaseQuality(item);
   }
 
   if (item.sellIn <= 0) {
     item.quality = 0;
   }
-
-  if (item.quality > 50) item.quality = 50;
-
   return item;
 };
 
 const treatNormalItems = (item) => {
   if (item.quality > 0) {
-    item.quality = item.quality - 1;
+    decreaseQuality(item);
     if (item.sellIn < 0) {
-      item.quality = item.quality - 1;
+      decreaseQuality(item);
     }
   }
 
   return item;
 };
 
+const increaseQuality = (item) => {
+  item.quality + 1 <= 50
+    ? (item.quality = item.quality + 1)
+    : (item.quality = 50);
+};
+
+const decreaseQuality = (item) => (item.quality = item.quality - 1);
 export default GildedRose;
