@@ -12,34 +12,47 @@ const GildedRose = function () {
 };
 
 GildedRose.updateQuality = function (items) {
-  const newItems = items.map((item, index) => {
-    const sellIn = item.name.includes("Sulfuras") ? 0 : item.sellIn - 1;
-    let quality;
-
-    if (item.name === "Aged Brie" || item.name.includes("Backstage passes")) {
-      quality =
-        sellIn <= 0
-          ? 0
-          : sellIn <= 5
-          ? item.quality + 3
-          : sellIn <= 10
-          ? item.quality + 2
-          : item.quality + 1;
-      quality = quality >= 50 ? 50 : quality;
-    } else if (item.name.includes("Sulfuras")) {
-      quality = item.quality;
-    } else if (item.quality === 0) {
-      quality = 0;
-    } else if (sellIn > 0) {
-      quality = item.quality - 1;
-    } else {
-      quality = item.quality - 2;
-    }
+  return items.map(item => {
+    const sellIn = checkSellIn(item);
+    const quality = checkQuality(item, sellIn);
 
     return { ...item, quality, sellIn };
   });
-
-  return newItems;
 };
+
+const checkSellIn = (item) => {
+  return checkItemIsSulfuras(item.name) ? 0 : item.sellIn - 1;
+};
+
+const checkQuality = (item, sellIn) => {
+  let quality;
+  if (checkItemIsBrieOrBackstagePasses(item.name)) {
+    quality = checkBrieOrBackstageQuality(item, sellIn)
+  } else if (checkItemIsSulfuras(item.name)) {
+    quality = item.quality;
+  } else if (item.quality === 0) {
+    quality = 0;
+  } else if (sellIn > 0) {
+    quality = item.quality - 1;
+  } else {
+    quality = item.quality - 2;
+  }
+  return quality
+};
+
+const checkItemIsBrieOrBackstagePasses = (itemName)=> itemName === 'Aged Brie' || itemName.includes('Backstage passes')
+const checkItemIsSulfuras = (itemName)=>itemName.includes('Sulfuras')
+
+const checkBrieOrBackstageQuality = (item, sellIn)=>{
+const quality = sellIn <= 0
+  ? 0
+  : sellIn <= 5
+  ? item.quality + 3
+  : sellIn <= 10
+  ? item.quality + 2
+  : item.quality + 1;
+
+  return quality >= 50 ? 50: quality
+}
 
 export default GildedRose;
